@@ -21,7 +21,6 @@ def get_answer(context, question):
     # Use the pre-trained model to get the answer
     result = qa_pipeline(context=context, question=question)
     answer = result['answer']
-
     return answer
 def get_context_and_questions(data_dir):
     data = pd.read_csv(data_dir)
@@ -73,3 +72,6 @@ print(f"Q : {question}\nA : {answer}")
 print(f"Q : {question1}\nA : {answer1}")
 print(f"Q : {question2}\nA : {answer2}")     
 print(f"Q : {question3}\nA : {answer3}")
+
+
+print(read_pdf(pdf_dir))
