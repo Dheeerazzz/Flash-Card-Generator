@@ -37,14 +37,15 @@ def get_answer_1(context,question):
     return answer
 
 def save_answers(context_dir,questions_dir):
-    context = read_context(context_dir).split('\n')[0]
+    context = read_context(context_dir)
+    print(context)
     df = pd.read_csv(questions_dir)
-    questions = df.values.flatten()[:20]
+    questions = df.values.flatten()[15:]
     questions_saved=[]
     distilbert_answers = []
     roberta_answers = []
     for question in questions:
-        print(question)
+        #print(question)
         answer = get_answer(context,question)
         answer_1 = get_answer_1(context,question)
         questions_saved.append(question)
@@ -52,14 +53,14 @@ def save_answers(context_dir,questions_dir):
         roberta_answers.append(answer_1)
         print(f"Que : {question}\nD_A : {answer}\nR_A : {answer_1}")
         dic = {
-             'questions' : np.array(question),
+             'questions' : np.array(questions_saved),
             'distilbert_answers' : np.array(distilbert_answers),
             'roberta_answers' : np.array(roberta_answers)
         }
-        pd.DataFrame(dic).to_csv("C:\\Users\\rishi\\OneDrive\\Desktop\\projects\\Venuratech\\Flash-Card-Generator\\flashcard_answer_project\\answers.csv")
+        pd.DataFrame(dic).to_csv("C:\\Users\\rishi\\OneDrive\\Desktop\\projects\\Venuratech\\Flash-Card-Generator\\files\\generated_answers.csv")
         print("answer saved")
 
-    return "All questions saved"
+    return "All are saved"
 
 print(save_answers(context_dir,questions_dir))
 #print(read_context(context_dir))
